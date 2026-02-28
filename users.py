@@ -44,6 +44,13 @@ def parse_user_seller_csv(filepath):
             
     return edge_list
 
+def init_user_seller_edges(G):
+    edge_list = parse_user_seller_csv("user_seller_edges.csv")
+    
+    for edge_info in edge_list:
+        user_id, seller_id, reason = edge_info["user"], edge_info["seller"], edge_info["reason"]
+        G.add_user_seller_edge(user_id, seller_id, reason)
+
 def _summarize_friend_notes(notes: str) -> str:
     """
     Turn the 'notes' field into a short 1–2 word label for edge annotation.

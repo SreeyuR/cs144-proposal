@@ -2,7 +2,7 @@ edge_id,user_id,seller_id,interaction_type,rating,hidden_gem,edge_tags,reason,so
 e001,u01,s01,visited,5,1,"clean;organized;unique_finds;housewares","great finds at fair prices + friendly staff","personal_knowledge"
 e002,u01,s07,hidden_gem_find,5,1,"designer_handbags;budget;rare_find","found cheap designer handbags at Rose Bowl flea vendor","in_person_flea"
 e003,u01,s06,visited,4,1,"punk;goth;band_tees;vintage_80s","niche styles you can't find in mainstream stores","friend_reco"
-e004,u02,s02,visited,4,0,"streetwear;designer;trend","curated trendy resale; known brands","social_media"
+e004,u02,s02,visited,4,0,"streetwear;designer;trend","cute ring","social_media"
 e005,u02,s01,visited,4,0,"home_goods;unique_finds","good rotation; easy stop-in","friend_reco"
 e006,u02,s03,visited,4,0,"treasure_hunt;vintage;home_decor","fun browse; sometimes great scores","friend_reco"
 e007,u03,s06,visited,5,1,"goth;alt;punk;accessories","perfect vibe for alternative outfits","personal_knowledge"

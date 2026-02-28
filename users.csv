@@ -1,6 +1,6 @@
 user_id,name,age,home_area,user_type,style_tags,price_sensitivity,trend_affinity,exploration_level,notes
 u01,Sreeyutha,21,Pasadena,explorer,"y2k;vintage;streetwear",0.6,0.5,0.8,"mix of trendy + unique finds"
-u02,Ana,21,Pasadena,trend_focused,"y2k;coquette;streetwear",0.4,0.9,0.6,"knows what's popular, follows fashion content"
+u02,Erica,21,Pasadena,trend_focused,"y2k;coquette;streetwear",0.4,0.9,0.6,"knows what's popular, follows fashion content"
 u03,Maya,22,Highland Park,individualistic,"avant_garde;goth;alt",0.5,0.3,0.9,"likes niche stores, not trend-driven"
 u04,Sam,21,Alhambra,budget_focused,"basics;minimalist;workwear",0.9,0.4,0.5,"prioritizes price and staple pieces"
 u05,Nina,22,Los Feliz,vintage_hunter,"vintage;denim;western",0.4,0.5,0.7,"excellent at spotting quality vintage"
