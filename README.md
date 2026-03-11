@@ -1,4 +1,4 @@
-# CS 144 Project Proposal — Proof of Concept
+# CS 144 Project Proposal
 
 Proof-of-concept implementations for our CS 144 Networks project proposal.
 
