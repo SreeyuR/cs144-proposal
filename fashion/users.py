@@ -52,17 +52,11 @@ def init_user_seller_edges(G):
         G.add_user_seller_edge(user_id, seller_id, reason)
 
 def _summarize_friend_notes(notes: str) -> str:
-    """
-    Turn the 'notes' field into a short 1–2 word label for edge annotation.
-    Designed for your dataset (thrift/fashion context) and to stay readable on plots.
-    """
     if not notes:
         return ""
 
     t = notes.lower()
 
-    # Domain keyword buckets (ordered by priority)
-    # Map many surface forms -> concise label
     patterns = [
         (r"\b(thrift|thrifting|finds|gems|treasure)\b", "Thrift"),
         (r"\b(vintage|denim|boots|handbags|accessories|jewelry)\b", "Vintage"),
@@ -81,19 +75,16 @@ def _summarize_friend_notes(notes: str) -> str:
         if re.search(pat, t):
             hits.append(label)
 
-    # Deduplicate while preserving order
     dedup = []
     for h in hits:
         if h not in dedup:
             dedup.append(h)
 
-    # Prefer 2-word max for readability
     if len(dedup) >= 2:
         return f"{dedup[0]}+{dedup[1]}"
     if len(dedup) == 1:
         return dedup[0]
 
-    # Fallback: extract 1–2 "meaningful" words from notes
     words = re.findall(r"[a-zA-Z]+", t)
     stop = {
         "share","sharing","often","shop","shopping","together","content","with","and","the","a","an",
@@ -102,20 +93,12 @@ def _summarize_friend_notes(notes: str) -> str:
     words = [w for w in words if w not in stop]
     if not words:
         return ""
-    # Take first 2 tokens as a last resort
     if len(words) >= 2:
         return f"{words[0].capitalize()}+{words[1].capitalize()}"
     return words[0].capitalize()
 
 
 def parse_friendships_csv(filepath):
-    """
-    Returns:
-      users: set[str]
-      edges: list[(u1, u2, attrs)]
-    attrs includes:
-      closeness (float), channel (str), notes (str), short_label (str)
-    """
     users = set()
     edges = []
     with open(filepath, newline="") as f:
@@ -152,12 +135,6 @@ def pretty_plot_users_only(
     figsize=(10, 8),
     show_edge_labels: bool = True,
 ):
-    """
-    Builds an undirected user-only graph from friends.csv and saves a PNG.
-    - Node size scales with degree
-    - Edge width scales with closeness
-    - Edge labels are summarized from notes (1–2 word label)
-    """
     users, edges = parse_friendships_csv(friends_csv_path)
 
     UG = nx.Graph()
@@ -169,11 +146,9 @@ def pretty_plot_users_only(
 
     pos = nx.spring_layout(UG, seed=seed)
 
-    # Node sizes by degree
     deg = dict(UG.degree())
     node_sizes = [700 + 250 * min(deg[n], 8) for n in UG.nodes()]
 
-    # Edge widths by closeness (clamped)
     widths = []
     for u, v in UG.edges():
         c = UG.edges[u, v].get("closeness", 0.0)

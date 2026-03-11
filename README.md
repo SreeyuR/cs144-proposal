@@ -1,31 +1,39 @@
-# cs144-proposal
+# CS 144 Project Proposal — Proof of Concept
 
-eric mazumdarr is so annoying and stupid and I hate him - anonymous
+Proof-of-concept implementations for our CS 144 Networks project proposal.
 
-Seller node fields (per store/vendor)
-- name
-- location (lat/long or neighborhood)
-- tags (style keywords: “y2k”, “vintage denim”, “minimalist”, “streetwear”, “goth”, etc.)
-- price_level (cheap/med/high or 1–3)
-- “hidden_gem_score” proxy (optional; could be derived from your own ratings)
+---
 
-User node fields
-- name (or anonymized ID)
-- style preferences tags (optional)
+## Overview
 
-Edges
-- user–seller: {type: visited / liked / “hidden gem find”, rating 1–5, tags like “great jeans”, “unique jewelry”}
-- user–user: friend link (simple)
-- seller–seller: weighted similarity (computed)
+This repo contains two exploratory projects demonstrating network analysis techniques:
 
---
+| Project | Description |
+|---------|-------------|
+| **epstein/** | Extracts person names from court document PDFs and builds a name co-occurrence network (who appears in the same documents). Uses baby-name data to filter likely person names. |
+| **fashion/** | Heterogeneous graph of users and sellers with friendship and purchase edges. Explores user–seller relationships and style-based recommendations. |
 
-users.csv
-- price_sensitivity, trend_affinity, exploration_level are 0–1 floats.
-- style_tags are semicolon-separated so they’re easy to split.
+---
 
-friendships.csv: Undirected social links
+## Running
 
-user_style_profiles.csv
-- Weights over styles so you can score recommendations later even before you have sellers.
+### Epstein (name extraction + co-occurrence graph)
 
+```bash
+cd epstein
+python main.py
+```
+
+### Fashion (user–seller network)
+
+```bash
+cd fashion
+python main.py
+```
+
+---
+
+## Output
+
+- **epstein**: `name_network.png`
+- **fashion**: `fashion_graph.png`, `soft_bipartite_fashion_network.png`

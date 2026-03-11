@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from users import get_user_pairs_from_csv, init_users, parse_user_seller_csv, init_user_seller_edges
+from users import init_users, init_user_seller_edges
 import sellers
 import numpy as np
 
@@ -24,19 +24,12 @@ class FashionGraph:
         self.graph.add_edge(user_id, seller_id, reason=reason)
 
     def merge_nx_graph(self, other_graph: nx.Graph, default_node_type: str = None):
-        """
-        Merge nodes/edges from another NetworkX graph into self.graph.
-        Preserves node/edge attributes.
-        If default_node_type is provided, nodes missing a 'type' get that type.
-        """
-        # Add nodes (preserve attributes)
         for n, attrs in other_graph.nodes(data=True):
-            attrs = dict(attrs)  # copy so we can safely modify
+            attrs = dict(attrs)
             if default_node_type is not None:
                 attrs.setdefault("type", default_node_type)
             self.graph.add_node(n, **attrs)
 
-        # Add edges (preserve attributes)
         for u, v, eattrs in other_graph.edges(data=True):
             self.graph.add_edge(u, v, **dict(eattrs))
 
@@ -84,15 +77,13 @@ def visualize_soft_bipartite(fashion_graph):
     users = [n for n, d in G.nodes(data=True) if d.get("type") == "user"]
     sellers = [n for n, d in G.nodes(data=True) if d.get("type") == "seller"]
 
-    # Start with full spring layout
     pos = nx.spring_layout(G, seed=42, k=0.6)
 
-    # Separate by shifting, not flattening
     for node in users:
-        pos[node][0] -= 1.5   # shift left
+        pos[node][0] -= 1.5  
 
     for node in sellers:
-        pos[node][0] += 1.5   # shift right
+        pos[node][0] += 1.5   
 
     nx.draw_networkx_nodes(G, pos,
                            nodelist=users,
@@ -119,9 +110,9 @@ def visualize_soft_bipartite(fashion_graph):
         G,
         pos,
         edge_labels=edge_labels,
-        font_size=6,          # small
+        font_size=6,        
         font_color="gray",
-        label_pos=0.5,        # middle of edge
+        label_pos=0.5,   
         rotate=False,
         bbox=dict(
             boxstyle="round,pad=0.1",
@@ -140,13 +131,11 @@ def visualize_soft_bipartite(fashion_graph):
 
 if __name__ == "__main__":
     G = FashionGraph(directed=False)
-    # Get sellers graph (assumed NetworkX Graph)
     G_sellers = sellers.get_seller_graph()
     # Merge sellers graph into the unified FashionGraph.
     # Force seller nodes to have type="seller" if they don't already.
     G.merge_nx_graph(G_sellers, default_node_type="seller")
     init_users("friends.csv", G)
-    # visualize_graph(G.graph)
 
     init_user_seller_edges(G)
 
